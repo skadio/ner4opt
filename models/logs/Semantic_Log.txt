@@ -1,0 +1,33 @@
+75090it [00:00, 1565958.58it/s]
+11956it [00:00, 1559106.41it/s]
+Number of training examples:  713
+Number of dev examples:  99
+Number of training labels:  713
+Number of dev labels:  99
+Some weights of the model checkpoint at roberta-large were not used when initializing RobertaForTokenClassification: ['lm_head.bias', 'lm_head.dense.bias', 'lm_head.layer_norm.bias', 'lm_head.dense.weight', 'lm_head.layer_norm.weight', 'lm_head.decoder.weight']
+- This IS expected if you are initializing RobertaForTokenClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing RobertaForTokenClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of RobertaForTokenClassification were not initialized from the model checkpoint at roberta-large and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/home/thebeast/Desktop/Final Submissions/task1_submission3/env/lib/python3.9/site-packages/simpletransformers/ner/ner_utils.py:190: FutureWarning: In a future version of pandas, a length 1 tuple will be returned when iterating over a groupby with a grouper equal to a list of length 1. Don't supply a list with a single grouper to avoid this warning.
+  return [
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:02<00:00,  1.07s/it]
+Epoch 1 of 11:   0%|                                                                                                                                                              | 0/11 [00:00<?, ?it/s/home/thebeast/Desktop/Final Submissions/task1_submission3/env/lib/python3.9/site-packages/torch/optim/lr_scheduler.py:131: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+Epochs 0/11. Running Loss:    0.0368: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:40<00:00,  7.08it/s]
+Epochs 1/11. Running Loss:    0.0017: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:39<00:00,  7.20it/s]
+Epochs 2/11. Running Loss:    0.0750: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:44<00:00,  6.80it/s]
+Epochs 3/11. Running Loss:    0.0121: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:39<00:00,  7.18it/s]
+Epochs 4/11. Running Loss:    0.0003: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:39<00:00,  7.14it/s]
+Epochs 5/11. Running Loss:    0.0001: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:46<00:00,  6.71it/s]
+Epochs 6/11. Running Loss:    0.0003: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:41<00:00,  7.01it/s]
+Epochs 7/11. Running Loss:    0.0001: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:40<00:00,  7.06it/s]
+Epochs 8/11. Running Loss:    0.0001: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:46<00:00,  6.72it/s]
+Epochs 9/11. Running Loss:    0.0001: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:42<00:00,  6.94it/s]
+Epochs 10/11. Running Loss:    0.0001: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [01:41<00:00,  7.03it/s]
+Epoch 11 of 11: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [19:41<00:00, 107.39s/it]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.80it/s]
+Running Prediction: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 99/99 [00:01<00:00, 64.27it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 99/99 [00:00<00:00, 39243.56it/s]
+{'P@OBJ_NAME': 0.6344086021505374, 'R@OBJ_NAME': 0.625441696113074, 'F1@OBJ_NAME': 0.6298932384341136, 'P@CONST_DIR': 0.9119999999999996, 'R@CONST_DIR': 0.8976377952755902, 'F1@CONST_DIR': 0.9047619047618544, 'P@OBJ_DIR': 0.9999999999999989, 'R@OBJ_DIR': 0.9494949494949485, 'F1@OBJ_DIR': 0.9740932642486537, 'P@VAR': 0.9277620396600565, 'R@VAR': 0.9424460431654674, 'F1@VAR': 0.9350463954317842, 'P@PARAM': 0.965020576131687, 'R@PARAM': 0.9811715481171546, 'F1@PARAM': 0.9730290456431033, 'P@LIMIT': 0.9839357429718871, 'R@LIMIT': 0.9459459459459455, 'F1@LIMIT': 0.9645669291338079, 'micro@P': 0.9050387596899225, 'micro@R': 0.9032882011605415, 'micro@F1': 0.9041626331074041, 'MD@R': 0.9090909090909091, 'MD@P': 0.9108527131782945, 'MD@F1': 0.909970958373619, 'ALLTRUE': 2068, 'ALLRECALLED': 1880, 'ALLPRED': 2064}
+Total Time taken:  1209.0882096118294

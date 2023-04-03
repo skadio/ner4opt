@@ -1,0 +1,6 @@
+inflect
+nltk
+overrides
+pandas
+simpletransformers==0.63.7
+torch==1.12.0

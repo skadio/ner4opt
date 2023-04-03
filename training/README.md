@@ -1,0 +1,1 @@
+# This folder has all the scripts relevant to training the models
