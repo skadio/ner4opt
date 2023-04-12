@@ -13,15 +13,15 @@ from .utils import format_entities, generate_feature_dictionary, l2_augment_sent
 class Ner4Opt(object):
     """Extract named entities for a given optimization problem.
 
-    The main objective of the Ner4Opt library is to generate named entities for optimization problems. There are six
-    entities the current library extracts; CONST_DIR (constraint direction), LIMIT (limit),
+    The main objective of the Ner4Opt library is to generate named entities for optimization problems.
+    There are six entities the current library extracts; CONST_DIR (constraint direction), LIMIT (limit),
     OBJ_DIR (objective direction), OBJ_NAME (objective name), PARAM (parameter) and VAR (variable).
 
-    This library provides access to four main methods for extracting these entities.
-    A `lexical` model built using lexical features alone, a `lexical_plus` model which in addition to lexical features
-    uses optimization scenario specific features, a `semantic` model which uses a roberta based transformers model and
-    a hybrid model which combines all the best features of both lexical and semantic models to achieve best results on
-    our datasets.
+    This library provides access to four main models for extracting these entities.
+    `lexical` model built using lexical features alone,
+    `lexical_plus` model which in addition to lexical features uses optimization scenario specific features,
+    `semantic` model which uses a roberta based transformers model and
+    `hybrid` model which combines all the best features of both lexical and semantic models to achieve best results.
 
     Attributes
     -------
@@ -39,14 +39,17 @@ class Ner4Opt(object):
     -------
     text (str) : Sample optimization problem
 
+    Returns
+    -------
+
     Returns named entities of a given optimization problem. A list of dictionaries for each entity
 
     Keys:
-        Name: start, dtype: int: Starting character index of the entity
-        Name: end, dtype: int: Ending character index of the entity
+        Name: start, dtype: int: Starting character index of the entity. Range is [0, len(text)]
+        Name: end, dtype: int: Ending character index of the entity. Range is [0, len(text)]
         Name: word, dtype: str: Entity phrase
         Name: entity_group, dtype: str: Type of the entity
-        Name: score, dtype: float: Defines the confidence of the prediction
+        Name: score, dtype: float: Defines the confidence of the prediction. Range is [0.0, 100.0]
     """
 
     def __init__(self, model_name: str = Constants.HYBRID, use_gpu: bool = False):
