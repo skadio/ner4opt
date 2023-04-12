@@ -1,6 +1,8 @@
 # Train and Test Data for NER4OPT
 
-Please find the original data repository [here](https://github.com/nl4opt/nl4opt-subtask1-baseline/tree/main/data)
+Original data repository - [NL4OPT @ NeurIPS'22 Data Repository](https://github.com/nl4opt/nl4opt-subtask1-baseline/tree/main/data)
+
+For more details regarding the license of the data, please refer the [original license](https://github.com/nl4opt/nl4opt-subtask1-baseline/blob/main/baseline/LICENSE)
 
 # Data Characteristics
 
@@ -15,10 +17,12 @@ Please find the original data repository [here](https://github.com/nl4opt/nl4opt
 ```
 python -m spacy convert train.txt . -t json -n 1 -c iob
 ```
+The reason for this conversion is to easily identify frequently occurring key-phrases to engineer relevant features.
+For more details, please refer our [jupyter notebook](https://github.com/skadio/Ner4Opt/notebooks/Gazetteers.ipynb)
 
 ## Directory structure
 ```
-├── train.txt   <- Data containing 713 examples tagged in IOB format
+├── train.txt   <- Original train data containing 713 examples tagged in IOB format
 ├── train.json  <- Converted train data in spacy format
 ├── dev.txt     <- Original dev data containing 99 examples tagged in IOB format used only for testing purpose
 ├── dev.json    <- Converted dev data in spacy format
