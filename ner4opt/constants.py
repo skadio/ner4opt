@@ -19,7 +19,9 @@ class Constants:
     # Roberta Model trained as part of our Hybridization experiment
     HYBRID_DEEP_MODEL = 'skadio/ner4opt-roberta-v2'
 
-    # For generating these keywords automatically, please refer our jupyter notebooks
+    # For generating these keywords automatically, please refer our jupyter notebooks.
+    # These keywords are used for our Gazetteer feature
+
     CONST_DIR_KEYWORDS = [
         'not want to spend more than', 'not want to invest more than', 'can not sell more than',
         'can not make more than', 'make only up to', 'can spend a total', 'can be used for', "n't make more than",
@@ -37,6 +39,8 @@ class Constants:
         'minimizes', 'least', 'maximum', 'maximized', 'minimizing', 'using', 'lowest', 'maximise', 'fewest',
         'overstate', 'most', 'minimize', 'high', 'maximal', 'minimal', 'minimum', 'maximize', 'minimise'
     ]
+
+    # Constants used in the extraction of objective name
 
     SUBJECTS = ['nsubj', 'nsubjpass', 'csubj', 'csubjpass', 'agent', 'expl']
 
@@ -75,11 +79,13 @@ class Constants:
     ]
 
     # Spacy models
+
     # better for sentence tokenization
     SPACY_SMALL_MODEL = 'en_core_web_sm'
     # better for pos, ner, dep
     SPACY_TRANSFORMERS_MODEL = 'en_core_web_trf'
 
+    # RoBERTa model labels
     LABELS = [
         'O', 'B-CONST_DIR', 'I-CONST_DIR', 'B-LIMIT', 'I-LIMIT', 'B-VAR', 'I-VAR', 'B-OBJ_DIR', 'B-OBJ_NAME',
         'I-OBJ_NAME', 'B-PARAM', 'I-PARAM'
