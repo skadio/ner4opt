@@ -2,15 +2,16 @@
 
 Given an optimization problem in natural language, the library extracts **six named entities**:
 
-- **CONST_DIR** (constraint direction)
-- **LIMIT** (limit)
-- **OBJ_DIR** (objective direction) 
-- **OBJ_NAME** (objective name)
-- **PARAM** (parameter)
-- **VAR** (variable)
+- **CONST_DIR**: Constraint direction
+- **LIMIT**: Limit
+- **OBJ_DIR**: Objective direction
+- **OBJ_NAME**: Objective name
+- **PARAM**: Parameter
+- **VAR**: Variable
 
 ## Installation
 
+To install this package, run the following command from the root folder
 ```bash
 pip install . 
 ```
@@ -26,7 +27,7 @@ entities = ner4opt.get_entities(example_problem)  # get entities
 
 ## Testing
 
-To run tests, execute:
+To run tests, execute the following from the root folder:
 
 ```
 python -m unittest
