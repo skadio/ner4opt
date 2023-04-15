@@ -14,10 +14,14 @@ class Constants:
     HYBRID_MODEL_NAME = 'hybrid.pkl'
 
     # Deep Models
-    # Roberta Model
-    SEMANTIC_DEEP_MODEL = 'skadio/ner4opt-roberta-v1'
-    # Roberta Model trained as part of our Hybridization experiment
-    HYBRID_DEEP_MODEL = 'skadio/ner4opt-roberta-v2'
+    # The only difference between the below deep models is due their inherent randomness during training
+
+    # https://huggingface.co/skadio/ner4opt-roberta-v1
+    SEMANTIC_MODEL_ROBERTA_V1 = 'skadio/ner4opt-roberta-v1'
+
+    # Roberta Model trained as part of our Hybridization experiment, please refer training section
+    # https://huggingface.co/skadio/ner4opt-roberta-v2
+    SEMANTIC_MODEL_ROBERTA_V2 = 'skadio/ner4opt-roberta-v2'
 
     # For generating these keywords automatically, please refer our jupyter notebooks.
     # These keywords are used for our Gazetteer feature
