@@ -25,11 +25,11 @@ class Ner4Opt(object):
 
     Attributes
     -------
-    model_name (str) : Specifies the model to use for extracting the entities.
-                       Options include `lexical`, `lexical_plus`, `semantic` and `hybrid`
-                       Default is `hybrid`
-    use_gpu (bool) :   Specifies the model to use gpu while calculating transformer based features.
-                       Default is False
+    model (str) : Specifies the model to use for extracting the entities.
+                  Options include `lexical`, `lexical_plus`, `semantic` and `hybrid`
+                  Default is `hybrid`
+    use_gpu (bool) : Specifies the model to use gpu while calculating transformer based features.
+                     Default is False
 
     Methods
     -------
@@ -50,9 +50,63 @@ class Ner4Opt(object):
         Name: word, dtype: str: Entity phrase
         Name: entity_group, dtype: str: Type of the entity
         Name: score, dtype: float: Defines the confidence of the prediction. Range is [0.0, 100.0]
+
+    Example Usage
+    -------------
+    # Import the Ner4Opt Library
+    >>> from ner4opt import Ner4Opt
+
+    # Problem Description
+    >>> problem_description = "Cautious Asset Investment has a total of $ 150,000 to manage and decides to invest it in money market fund , which yields a 2 % return as well as in foreign bonds , which gives and average rate of return of 10.2 % . Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40 % of the total investment . Due to the risk of default of foreign countries , no more than 40 % of the total investment should be allocated to foreign bonds . How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return ?"
+
+    # Ner4Opt Model options: lexical, lexical_plus, semantic, hybrid
+    >>> ner4opt = Ner4Opt(model='hybrid')
+
+    # Extracts a list of dictionaries corresponding to each entity in the problem description
+    # Each dictionary holds keys for
+    # start (starting character index of the entity),
+    # end (ending character index of the entity),
+    # word (entity),
+    # entity_group (entity label) and
+    # score (confidence score for the entity)
+    >>> entities = ner4opt.get_entities(problem_description)
+
+    # Output
+    >>> print(entities)
+
+    # Displaying a prettyprint of few entities for understanding
+    [
+        {
+            ...
+        },
+
+        {
+            'start': 32,
+            'end': 37,
+            'word': 'total',
+            'entity_group': 'CONST_DIR',
+            'score': 0.997172257043559
+        },
+        {
+            'start': 575,
+            'end': 583,
+            'word': 'maximize',
+            'entity_group': 'OBJ_DIR',
+            'score': 0.9982091561140413
+        },
+        {
+            ...
+        },
+
+    ]
+
+    Help
+    ----
+    >>> from ner4opt import Ner4Opt
+    >>> Ner4Opt.__doc__
     """
 
-    def __init__(self, model_name: str = Constants.HYBRID, use_gpu: bool = False):
+    def __init__(self, model: str = Constants.HYBRID, use_gpu: bool = False):
         """Init Ner4Opt class."""
 
         _root_directory = pathlib.Path(__file__).parent.parent
@@ -63,28 +117,28 @@ class Ner4Opt(object):
                                                      Constants.LEXICAL_PLUS_MODEL_NAME)
         self._hybrid_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY, Constants.HYBRID_MODEL_NAME)
 
-        self._model_name = model_name
+        self._model = model
         self._crf_model = None
-        self._deep_model = None
+        self._roberta_model = None
 
         # Load model
-        if model_name == Constants.LEXICAL:
+        if self._model == Constants.LEXICAL:
             self._crf_model = joblib.load(self._lexical_model_path)
 
-        elif model_name == Constants.LEXICAL_PLUS:
+        elif self._model == Constants.LEXICAL_PLUS:
             self._crf_model = joblib.load(self._lexical_plus_model_path)
 
-        elif model_name == Constants.SEMANTIC:
-            self._deep_model = load_torch_model(Constants.SEMANTIC_DEEP_MODEL, use_gpu=use_gpu)
+        elif self._model == Constants.SEMANTIC:
+            self._roberta_model = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V1, use_gpu=use_gpu)
 
-        elif model_name == Constants.HYBRID:
-            self._deep_model = load_torch_model(Constants.HYBRID_DEEP_MODEL, use_gpu=use_gpu)
+        elif self._model == Constants.HYBRID:
+            self._roberta_model = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V2, use_gpu=use_gpu)
             self._crf_model = joblib.load(self._hybrid_model_path)
 
         else:
             raise InvalidModelError(
                 "Invalid Model {} passed. Model name should be one of the following lexical, lexical_plus, semantic or hybrid"
-                .format(model_name))
+                .format(self._model))
 
     def get_entities(self, text: str) -> List[dict]:
         """Extract Entities."""
@@ -95,11 +149,11 @@ class Ner4Opt(object):
             return predicted_entities
 
         augmented_sentence, augmentation = l2_augment_sentence(text)
-        featurizer = Featurizer(augmented_sentence, self._model_name)
+        featurizer = Featurizer(augmented_sentence, self._model)
         tokens_to_ignore_from_augmentation = len(augmentation.split())
 
-        if self._model_name == Constants.SEMANTIC:
-            predicted_entities, probabilities = self._deep_model.predict([augmented_sentence], split_on_space=True)
+        if self._model == Constants.SEMANTIC:
+            predicted_entities, probabilities = self._roberta_model.predict([augmented_sentence], split_on_space=True)
             # ignore augmentation tokens
             predicted_entities = predicted_entities[0][tokens_to_ignore_from_augmentation::]
             probabilities = probabilities[0][tokens_to_ignore_from_augmentation::]
@@ -107,9 +161,9 @@ class Ner4Opt(object):
             predicted_entities = format_entities(text, predicted_entities, probabilities, crf_flag=False)
         else:
             features = featurizer.get_features()
-            if self._model_name == Constants.HYBRID:
+            if self._model == Constants.HYBRID:
                 # add transformer predictions as an additional feature
-                semantic_features, _ = self._deep_model.predict([augmented_sentence], split_on_space=True)
+                semantic_features, _ = self._roberta_model.predict([augmented_sentence], split_on_space=True)
                 semantic_features = [list(item.values())[0] for item in semantic_features[0]]
 
                 for token_index, token_features in enumerate(features):
@@ -119,7 +173,7 @@ class Ner4Opt(object):
             # generate feature dictionary, an input required for the CRF model
             crf_model_input = []
             for feature_index in range(len(features)):
-                crf_model_input.append(generate_feature_dictionary(features, feature_index, self._model_name))
+                crf_model_input.append(generate_feature_dictionary(features, feature_index, self._model))
 
             # predict and format
             predicted_entities = self._crf_model.predict([crf_model_input])
