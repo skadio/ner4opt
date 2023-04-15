@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #  -*- coding: utf-8 -*-
+import json
 import math
 import os
-import pickle
 import unittest
 from pathlib import Path
 
@@ -14,8 +14,8 @@ class Ner4OptTest(unittest.TestCase):
 
     @staticmethod
     def load_pickled_object(filename):
-        with open(filename, 'rb') as f:
-            result = pickle.load(f)
+        with open(filename, 'r') as f:
+            result = json.load(f)
         return result
 
     @staticmethod
@@ -43,13 +43,13 @@ class Ner4OptTest(unittest.TestCase):
         self._example = self.read_example_sentence(os.path.join(_current_dir, "fixtures/example_problem.txt"))
 
         self._expected_lexical_result = self.load_pickled_object(
-            os.path.join(_current_dir, "fixtures/lexical_result.pkl"))
+            os.path.join(_current_dir, "fixtures/lexical_result.json"))
         self._expected_lexical_plus_result = self.load_pickled_object(
-            os.path.join(_current_dir, "fixtures/lexical_plus_result.pkl"))
+            os.path.join(_current_dir, "fixtures/lexical_plus_result.json"))
         self._expected_semantic_result = self.load_pickled_object(
-            os.path.join(_current_dir, "fixtures/semantic_result.pkl"))
-        self._expected_hybrid_result = self.load_pickled_object(os.path.join(_current_dir,
-                                                                             "fixtures/hybrid_result.pkl"))
+            os.path.join(_current_dir, "fixtures/semantic_result.json"))
+        self._expected_hybrid_result = self.load_pickled_object(
+            os.path.join(_current_dir, "fixtures/hybrid_result.json"))
 
         self._lexical_ner_model = Ner4Opt("lexical")
         self._lexical_plus_ner_model = Ner4Opt("lexical_plus")
