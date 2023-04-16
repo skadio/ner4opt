@@ -8,9 +8,14 @@
 ## Training script for our best model
 
 ```
+# Install dependencies for calculating F-1: Original NL4OPT Utils
+pip install allennlp overrides
+
+# Install Ner4Opt
 pip install ner4opt
-chmod +x train_and_evaluate_hybrid_model.sh
-./train_and_evaluate_hybrid_model.sh
+
+# Run training and evaluation
+python train_and_evaluate_hybrid_model.py --train "data/train.txt" --test "data/dev.txt"
 ```
 
 ## Directory structure
@@ -21,7 +26,6 @@ chmod +x train_and_evaluate_hybrid_model.sh
 ├── nl4opt_utils                        <- Utils from NL4Opt. Please see below for the original folder
 ├── notebooks                           <- Notebooks for data augmentation and gazetteers
 ├── train_and_evaluate_hybrid_model.py  <- Hybrid model training and evaluation script
-├── train_and_evaluate_hybrid_model.sh  <- Bash Script for running our Hybrid model end-to-end
 ```
 
 [Original Utils from NL4OPT](https://github.com/nl4opt/nl4opt-subtask1-baseline/tree/main/baseline/utils)
