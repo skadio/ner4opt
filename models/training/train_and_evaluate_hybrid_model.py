@@ -23,11 +23,10 @@ from sklearn_crfsuite import metrics
 from spacy.tokenizer import Tokenizer
 from tqdm import tqdm
 
-from ner4opt.constants import Constants
 from ner4opt.features import Featurizer
 from ner4opt.utils import generate_feature_dictionary
 
-root_directory = Path(os.path.abspath('')).parent
+root_directory = Path(os.path.abspath(''))
 sys.path.append(str(root_directory))
 
 # transformer spacy model for better pos, dep, ner accuracy

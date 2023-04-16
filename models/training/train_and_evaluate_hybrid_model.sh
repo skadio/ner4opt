@@ -13,6 +13,4 @@ python -m spacy download en_core_web_sm==3.2.0
 python -m spacy download en_core_web_trf==3.2.0
 pip install git+https://github.com/MeMartijn/updated-sklearn-crfsuite.git#egg=sklearn_crfsuite
 pip install torch==1.12.0
-current_dir=$(pwd)
-previous_dir=$(dirname "$current_dir")
-python train_and_evaluate_hybrid_model.py --train "$previous_dir/data/train.txt" --test "$previous_dir/data/dev.txt"
+python train_and_evaluate_hybrid_model.py --train "data/train.txt" --test "data/dev.txt"
