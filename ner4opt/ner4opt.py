@@ -48,7 +48,7 @@ class Ner4Opt(object):
         Name: start, dtype: int: Starting character index of the entity. Range is [0, len(text)]
         Name: end, dtype: int: Ending character index of the entity. Range is [0, len(text)]
         Name: word, dtype: str: Entity phrase
-        Name: entity_group, dtype: str: Type of the entity
+        Name: entity_group, dtype: str: Type of the entity [CONST_DIR, LIMIT, OBJ_DIR, OBJ_NAME, PARAM, VAR]
         Name: score, dtype: float: Defines the confidence of the prediction. Range is [0.0, 100.0]
 
     Example Usage
@@ -57,6 +57,7 @@ class Ner4Opt(object):
     >>> from ner4opt import Ner4Opt
 
     # Problem Description
+    # We expect the problem description to be spacy tokenized text sequence, please refer https://spacy.io/api/tokenizer
     >>> problem_description = "Cautious Asset Investment has a total of $ 150,000 to manage and decides to invest it in money market fund , which yields a 2 % return as well as in foreign bonds , which gives and average rate of return of 10.2 % . Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40 % of the total investment . Due to the risk of default of foreign countries , no more than 40 % of the total investment should be allocated to foreign bonds . How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return ?"
 
     # Ner4Opt Model options: lexical, lexical_plus, semantic, hybrid
@@ -111,29 +112,32 @@ class Ner4Opt(object):
 
         _root_directory = pathlib.Path(__file__).parent.parent
 
-        self._lexical_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY,
-                                                Constants.LEXICAL_MODEL_NAME)
-        self._lexical_plus_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY,
-                                                     Constants.LEXICAL_PLUS_MODEL_NAME)
-        self._hybrid_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY, Constants.HYBRID_MODEL_NAME)
+        self._lexical_crf_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY,
+                                                    Constants.LEXICAL_CRF_MODEL_NAME)
+        self._lexical_plus_crf_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY,
+                                                         Constants.LEXICAL_PLUS_CRF_MODEL_NAME)
+        self._hybrid_crf_model_path = os.path.join(_root_directory, Constants.MODELS_DIRECTORY,
+                                                   Constants.HYBRID_CRF_MODEL_NAME)
 
         self._model = model
         self._crf_model = None
-        self._roberta_model = None
+        self._semantic_feature_extractor = None
 
         # Load model
         if self._model == Constants.LEXICAL:
-            self._crf_model = joblib.load(self._lexical_model_path)
+            self._crf_model = joblib.load(self._lexical_crf_model_path)
 
         elif self._model == Constants.LEXICAL_PLUS:
-            self._crf_model = joblib.load(self._lexical_plus_model_path)
+            self._crf_model = joblib.load(self._lexical_plus_crf_model_path)
 
         elif self._model == Constants.SEMANTIC:
-            self._roberta_model = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V1, use_gpu=use_gpu)
+            # Model to extract semantic features
+            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V1, use_gpu=use_gpu)
 
         elif self._model == Constants.HYBRID:
-            self._roberta_model = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V2, use_gpu=use_gpu)
-            self._crf_model = joblib.load(self._hybrid_model_path)
+            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V2, use_gpu=use_gpu)
+            # Our best model combines both semantic and lexical features
+            self._crf_model = joblib.load(self._hybrid_crf_model_path)
 
         else:
             raise InvalidModelError(
@@ -153,17 +157,20 @@ class Ner4Opt(object):
         tokens_to_ignore_from_augmentation = len(augmentation.split())
 
         if self._model == Constants.SEMANTIC:
-            predicted_entities, probabilities = self._roberta_model.predict([augmented_sentence], split_on_space=True)
+            # use semantic features and associated probabilities to predict entity labels
+            predicted_entities, probabilities = self._semantic_feature_extractor.predict([augmented_sentence], split_on_space=True)
             # ignore augmentation tokens
             predicted_entities = predicted_entities[0][tokens_to_ignore_from_augmentation::]
             probabilities = probabilities[0][tokens_to_ignore_from_augmentation::]
             # format predicted entities
             predicted_entities = format_entities(text, predicted_entities, probabilities, crf_flag=False)
         else:
+            # extract all lexical features
             features = featurizer.get_features()
+
             if self._model == Constants.HYBRID:
-                # add transformer predictions as an additional feature
-                semantic_features, _ = self._roberta_model.predict([augmented_sentence], split_on_space=True)
+                # add semantic predictions as an additional feature
+                semantic_features, _ = self._semantic_feature_extractor.predict([augmented_sentence], split_on_space=True)
                 semantic_features = [list(item.values())[0] for item in semantic_features[0]]
 
                 for token_index, token_features in enumerate(features):

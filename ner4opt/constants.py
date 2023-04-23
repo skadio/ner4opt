@@ -8,20 +8,25 @@ class Constants:
     SEMANTIC = 'semantic'
     HYBRID = 'hybrid'
 
-    # CRF Models
-    LEXICAL_MODEL_NAME = 'lexical.pkl'
-    LEXICAL_PLUS_MODEL_NAME = 'lexical_plus.pkl'
-    HYBRID_MODEL_NAME = 'hybrid.pkl'
+    # Conditional Random Field (CRF) models convert features extracted at each token into an appropriate entity label
+    # Features could be lexical, domain specific, semantic (deep learning), etc.,
 
-    # Deep Models
-    # The only difference between the below deep models is due their inherent randomness during training
+    # CRF Model trained on lexical features
+    LEXICAL_CRF_MODEL_NAME = 'lexical.pkl'
+    # CRF Model trained on lexical features + lexical domain specific features
+    LEXICAL_PLUS_CRF_MODEL_NAME = 'lexical_plus.pkl'
+
+    # Deep Models for extracting semantic features
 
     # https://huggingface.co/skadio/ner4opt-roberta-v1
+    # https://huggingface.co/skadio/ner4opt-roberta-v2 (used as a part of our hybrid model)
+    # The only difference between v1 and v2 is due to inherent randomness during training
+    # Refer to the training section for the details of training setup
     SEMANTIC_MODEL_ROBERTA_V1 = 'skadio/ner4opt-roberta-v1'
-
-    # Roberta Model trained as part of our Hybridization experiment, please refer training section
-    # https://huggingface.co/skadio/ner4opt-roberta-v2
     SEMANTIC_MODEL_ROBERTA_V2 = 'skadio/ner4opt-roberta-v2'
+
+    # CRF Model trained on the combined set of above lexical features and semantic features from our deep learning model
+    HYBRID_CRF_MODEL_NAME = 'hybrid.pkl'
 
     # For generating these keywords automatically, please refer our jupyter notebooks.
     # These keywords are used for our Gazetteer feature
