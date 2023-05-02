@@ -2,7 +2,7 @@
 #  -*- coding: utf-8 -*-
 import unittest
 
-from ner4opt.features import Featurizer
+from ner4opt.featurizer import Featurizer
 
 
 class FeaturesTest(unittest.TestCase):
