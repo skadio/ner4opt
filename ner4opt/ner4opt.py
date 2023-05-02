@@ -5,7 +5,7 @@ from typing import List
 import joblib
 
 from .constants import Constants
-from .features import Featurizer
+from .featurizer import Featurizer
 from .utils import format_entities, generate_feature_dictionary, l2_augment_sentence, load_torch_model
 
 
