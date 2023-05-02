@@ -19,6 +19,11 @@ regex_obj = re.compile(r'\S+')
 pluralizer = inflect.engine()
 
 
+def spacy_tokenize_sentence(sentence: str) -> str:
+    """Given a sentence tokenize the text using SpaCy."""
+    return " ".join([token.text for token in nlp(sentence)])
+
+
 def l2_augment_sentence(sentence: str) -> Tuple[str, str]:
     """Given a sentence concatenate last two sentences to the top.
 

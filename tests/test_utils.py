@@ -5,7 +5,7 @@ import unittest
 import spacy
 
 from ner4opt.utils import (format_entities, generate_connected_components, generate_singulars_and_plurals,
-                           get_phrases_with_hyphens_and_quotes, l2_augment_sentence)
+                           get_phrases_with_hyphens_and_quotes, l2_augment_sentence, spacy_tokenize_sentence)
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -15,8 +15,14 @@ class UtilsTest(unittest.TestCase):
     def setUp(self):
 
         self._example = "I like optimization. It is a good subject to learn. I would love to maximize my time I spend reading about it."
+        self._example_for_spacy_tokenization = "Company A has a profit margin of 10% and B has 20%."
         self._words_and_phrases = ["batch", "coconut", "actor", "wheel", "blood pressure medicine"]
         self._spacy_sentence = nlp('Let us learn about " puff of air test " and a sewing - machine')
+
+    def test_spacy_tokenize_sentence(self):
+        result = spacy_tokenize_sentence(self._example_for_spacy_tokenization)
+        self.assertEqual(result,
+                         "Company A has a profit margin of 10 % and B has 20 % .")
 
     def test_l2_augment_sentence(self):
         augmented_sentence, augmentation = l2_augment_sentence(self._example)
