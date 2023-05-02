@@ -7,7 +7,6 @@ import unittest
 from pathlib import Path
 
 from ner4opt import Ner4Opt
-from ner4opt.exceptions import InvalidModelError
 
 
 class Ner4OptTest(unittest.TestCase):
@@ -79,5 +78,5 @@ class Ner4OptTest(unittest.TestCase):
     # Invalid usage test
     def test_get_entities_invalid_usage(self):
 
-        with self.assertRaises(InvalidModelError) as context:
+        with self.assertRaises(ValueError) as context:
             invalid_ner_model = Ner4Opt("invalid")

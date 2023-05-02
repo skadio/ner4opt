@@ -5,7 +5,6 @@ from typing import List
 import joblib
 
 from .constants import Constants
-from .exceptions import InvalidModelError
 from .features import Featurizer
 from .utils import format_entities, generate_feature_dictionary, l2_augment_sentence, load_torch_model
 
@@ -140,7 +139,7 @@ class Ner4Opt(object):
             self._crf_model = joblib.load(self._hybrid_crf_model_path)
 
         else:
-            raise InvalidModelError(
+            raise ValueError(
                 "Invalid Model {} passed. Model name should be one of the following lexical, lexical_plus, semantic or hybrid"
                 .format(self._model))
 
