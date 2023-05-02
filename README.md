@@ -52,12 +52,35 @@ print("Number of entities found: ", len(entities))
 
 ## Installation
 
-Ner4Opt requires Python 3.X+ and can be installed from PyPI using `pip install ner4opt` or by building from source 
+Ner4Opt requires Python 3.9+ and can be installed from PyPI using `pip install ner4opt` or by building from source 
 
 ```bash
 git clone https://github.com/skadio/Ner4Opt.git
 cd ner4opt
 pip install .
+```
+
+## SpaCy Tokenization
+We expect the problem description to be SpaCy tokenized due to the nature of our training data. 
+
+Please see a quick example below on how to tokenize it.
+
+```python
+import spacy
+
+# Example with different symbols and punctuations appended to the text
+problem_description = "Company A has a profit margin of 10% and B has 20%."
+
+# Load SpaCy model
+nlp = spacy.load("en_core_web_sm")
+
+# Tokenize
+tokenized_description = " ".join([token.text for token in nlp(problem_description)])
+
+# Output
+print(tokenized_description)
+
+# Company A has a profit margin of 10 % and B has 20 % .
 ```
 
 ## Testing
