@@ -16,7 +16,7 @@ Given an optimization problem in natural language, the Ner4Opt library extracts 
 from ner4opt import Ner4Opt
 
 # Problem Description
-problem_description = "Cautious Asset Investment has a total of $ 150,000 to manage and decides to invest it in money market fund , which yields a 2 % return as well as in foreign bonds , which gives and average rate of return of 10.2 % . Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40 % of the total investment . Due to the risk of default of foreign countries , no more than 40 % of the total investment should be allocated to foreign bonds . How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return ?"
+problem_description = "Cautious Asset Investment has a total of $150,000 to manage and decides to invest it in money market fund, which yields a 2% return as well as in foreign bonds, which gives and average rate of return of 10.2%. Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40% of the total investment. Due to the risk of default of foreign countries, no more than 40% of the total investment should be allocated to foreign bonds. How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return?"
 
 # Ner4Opt Model options: lexical, lexical_plus, semantic, hybrid (default). 
 ner4opt = Ner4Opt(model="hybrid")
@@ -55,32 +55,9 @@ print("Number of entities found: ", len(entities))
 Ner4Opt requires Python 3.9+ and can be installed from PyPI using `pip install ner4opt` or by building from source 
 
 ```bash
-git clone https://github.com/skadio/Ner4Opt.git
+git clone https://github.com/skadio/ner4opt.git
 cd ner4opt
 pip install .
-```
-
-## SpaCy Tokenization
-We expect the problem description to be SpaCy tokenized due to the nature of our training data. 
-
-Please see a quick example below on how to tokenize it.
-
-```python
-import spacy
-
-# Example with different symbols and punctuations appended to the text
-problem_description = "Company A has a profit margin of 10% and B has 20%."
-
-# Load SpaCy model
-nlp = spacy.load("en_core_web_sm")
-
-# Tokenize
-tokenized_description = " ".join([token.text for token in nlp(problem_description)])
-
-# Output
-print(tokenized_description)
-
-# Company A has a profit margin of 10 % and B has 20 % .
 ```
 
 ## Testing
