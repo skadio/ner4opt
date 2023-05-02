@@ -6,7 +6,7 @@ import joblib
 
 from .constants import Constants
 from .featurizer import Featurizer
-from .utils import format_entities, generate_feature_dictionary, l2_augment_sentence, load_torch_model
+from .utils import format_entities, generate_feature_dictionary, l2_augment_sentence, load_torch_model, spacy_tokenize_sentence
 
 
 class Ner4Opt(object):
@@ -56,30 +56,22 @@ class Ner4Opt(object):
     >>> from ner4opt import Ner4Opt
 
     # Problem Description
-    # We expect the problem description to be spacy tokenized text sequence, please refer https://spacy.io/api/tokenizer
-    >>> problem_description = "Cautious Asset Investment has a total of $ 150,000 to manage and decides to invest it in money market fund , which yields a 2 % return as well as in foreign bonds , which gives and average rate of return of 10.2 % . Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40 % of the total investment . Due to the risk of default of foreign countries , no more than 40 % of the total investment should be allocated to foreign bonds . How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return ?"
+    >>> problem_description = "Cautious Asset Investment has a total of $150,000 to manage and decides to invest it in money market fund, which yields a 2% return as well as in foreign bonds, which gives and average rate of return of 10.2%. Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40% of the total investment. Due to the risk of default of foreign countries, no more than 40% of the total investment should be allocated to foreign bonds. How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return?"
 
-    # Ner4Opt Model options: lexical, lexical_plus, semantic, hybrid
-    >>> ner4opt = Ner4Opt(model='hybrid')
+    # Ner4Opt Model options: lexical, lexical_plus, semantic, hybrid (default).
+    >>> ner4opt = Ner4Opt(model="hybrid")
 
-    # Extracts a list of dictionaries corresponding to each entity in the problem description
-    # Each dictionary holds keys for
-    # start (starting character index of the entity),
-    # end (ending character index of the entity),
-    # word (entity),
-    # entity_group (entity label) and
-    # score (confidence score for the entity)
+    # Extracts a list of dictionaries corresponding to entities found in the given problem description.
+    # Each dictionary holds keys for the following:
+    # start (starting character index of the entity), end (ending character index of the entity)
+    # word (entity), entity_group (entity label) and score (confidence score for the entity)
     >>> entities = ner4opt.get_entities(problem_description)
 
     # Output
-    >>> print(entities)
+    >>> print("Number of entities found: ", len(entities))
 
-    # Displaying a prettyprint of few entities for understanding
+    # Example output
     [
-        {
-            ...
-        },
-
         {
             'start': 32,
             'end': 37,
@@ -94,10 +86,7 @@ class Ner4Opt(object):
             'entity_group': 'OBJ_DIR',
             'score': 0.9982091561140413
         },
-        {
-            ...
-        },
-
+        { ... },
     ]
 
     Help
@@ -150,6 +139,9 @@ class Ner4Opt(object):
 
         if not text:
             return predicted_entities
+
+        # tokenize to make sure the text is in SpaCy tokenized format
+        text = spacy_tokenize_sentence(text)
 
         augmented_sentence, augmentation = l2_augment_sentence(text)
         featurizer = Featurizer(augmented_sentence, self._model)
