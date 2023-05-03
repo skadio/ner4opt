@@ -17,18 +17,17 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     version=__version__,
-    author="",
-    url="",
+    url="https://github.com/skadio/ner4opt",
     packages=(["models"] + setuptools.find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])),
     include_package_data=True,
     install_requires=required,
     python_requires=">=3.8",
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
     ],
     project_urls={
-        "Source": "",
+        "Source": "https://github.com/skadio/ner4opt",
     },
 )
