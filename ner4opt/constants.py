@@ -93,6 +93,7 @@ class Constants:
     SPACY_SMALL_MODEL = 'en_core_web_sm'
     # better for pos, ner, dep
     SPACY_TRANSFORMERS_MODEL = 'en_core_web_trf'
+    SPACY_MODEL_VERSION = "3.2.0"
 
     # RoBERTa model labels
     LABELS = [
