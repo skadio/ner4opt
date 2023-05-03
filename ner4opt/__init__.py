@@ -5,7 +5,8 @@ This module defines the public interface of the
     - ``Ner4Opt``
 """
 
+from . import setup_nltk
+from . import setup_spacy
+
 from ner4opt._version import __version__
 from ner4opt.ner4opt import Ner4Opt
-
-from . import setup_nltk
