@@ -1,0 +1,8 @@
+prune */__pycache__
+
+recursive-include models *
+recursive-include tests *
+
+include CHANGELOG.md
+include README.md
+include requirements.txt
