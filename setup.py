@@ -18,7 +18,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     version=__version__,
     url="https://github.com/skadio/ner4opt",
-    packages=(["models"] + setuptools.find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])),
+    packages=(["models"] + setuptools.find_packages()),
     include_package_data=True,
     install_requires=required,
     python_requires=">=3.8",
