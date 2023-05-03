@@ -22,7 +22,7 @@ setuptools.setup(
     packages=(["models"] + setuptools.find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])),
     include_package_data=True,
     install_requires=required,
-    python_requires=">=3.9",
+    python_requires=">=3.8",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.9",

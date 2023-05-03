@@ -52,7 +52,7 @@ print("Number of entities found: ", len(entities))
 
 ## Installation
 
-Ner4Opt requires Python 3.9+ and can be installed from PyPI using `pip install ner4opt` or by building from source 
+Ner4Opt requires Python 3.8+ and can be installed from PyPI using `pip install ner4opt` or by building from source 
 
 ```bash
 git clone https://github.com/skadio/ner4opt.git
