@@ -113,7 +113,7 @@ def generate_connected_components(spacy_sentence: SpacyType) -> Dict:
     return connected_chunks
 
 
-def load_torch_model(model_name: str, use_gpu: bool = False):
+def load_torch_model(model_name: str, use_gpu: bool = False, use_multiprocessing: bool = False):
     """Load Torch model."""
 
     model_args = NERArgs()
@@ -134,6 +134,7 @@ def load_torch_model(model_name: str, use_gpu: bool = False):
     model_args.eval_batch_size = 1
     model_args.manual_seed = 123456789
     model_args.use_cuda = use_gpu
+    model_args.use_multiprocessing = use_multiprocessing
     model_args.force_download = True
 
     model = NERModel("roberta", model_name, labels=Constants.LABELS, use_cuda=use_gpu, args=model_args)

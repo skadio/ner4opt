@@ -29,6 +29,8 @@ class Ner4Opt(object):
                   Default is `hybrid`
     use_gpu (bool) : Specifies the model to use gpu while calculating transformer based features.
                      Default is False
+    use_multiprocessing (bool) : Specifies the model to use multiprocessing while calculating transformer based features.
+                                 Default is False
 
     Methods
     -------
@@ -95,7 +97,7 @@ class Ner4Opt(object):
     >>> Ner4Opt.__doc__
     """
 
-    def __init__(self, model: str = Constants.HYBRID, use_gpu: bool = False):
+    def __init__(self, model: str = Constants.HYBRID, use_gpu: bool = False, use_multiprocessing: bool = False):
         """Init Ner4Opt class."""
 
         _root_directory = pathlib.Path(__file__).parent.parent
@@ -120,10 +122,14 @@ class Ner4Opt(object):
 
         elif self._model == Constants.SEMANTIC:
             # Model to extract semantic features
-            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V1, use_gpu=use_gpu)
+            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V1,
+                                                                use_gpu=use_gpu,
+                                                                use_multiprocessing=use_multiprocessing)
 
         elif self._model == Constants.HYBRID:
-            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V2, use_gpu=use_gpu)
+            self._semantic_feature_extractor = load_torch_model(Constants.SEMANTIC_MODEL_ROBERTA_V2,
+                                                                use_gpu=use_gpu,
+                                                                use_multiprocessing=use_multiprocessing)
             # Our best model combines both semantic and lexical features
             self._crf_model = joblib.load(self._hybrid_crf_model_path)
 
