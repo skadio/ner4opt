@@ -1,6 +1,8 @@
-# Named Entity Recognition for Optimization (Ner4Opt) Library
+# Ner4Opt: Named Entity Recognition for Optimization 
 
-Given an optimization problem in natural language, the Ner4Opt library extracts **six named entities**:
+Given an optimization problem in natural language, the Ner4Opt library extracts optimization related entities from free-form text. 
+
+The Ner4Opt model [(CPAIOR'23, Nl4Opt@NeurIPS'22)]() is trained to detect six named entities: 
 
 - **CONST_DIR**: Constraint direction
 - **LIMIT**: Limit
