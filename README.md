@@ -1,6 +1,6 @@
 # Ner4Opt: Named Entity Recognition for Optimization 
 
-Given an optimization problem in natural language, the Ner4Opt library extracts optimization related entities from free-form text. 
+Given an optimization problem in natural language, Ner4Opt extracts optimization related entities from free-form text. 
 
 See our [HugginFace Space Demo](https://huggingface.co/spaces/skadio/Ner4Opt) to test it yourself 🤗. 
 
@@ -12,6 +12,8 @@ The Ner4Opt model ([CPAIOR'23](https://github.com/skadio/ner4opt/blob/main/docs/
 - **OBJ_NAME**: Objective name
 - **PARAM**: Parameter
 - **VAR**: Variable
+
+Here are the details of our [pretrained models](https://github.com/skadio/ner4opt/blob/main/models/README.md) and the [training procedure](https://github.com/skadio/ner4opt/blob/main/models/training/README.md). Large pretrained models are hosted in [HuggingFace Models](https://huggingface.co/skadio).
 
 ## Quick Start
 
