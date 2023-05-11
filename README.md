@@ -73,3 +73,18 @@ To run tests, execute the following from the root folder:
 ```
 python -m unittest
 ```
+
+## Citation
+
+## Citation
+If you use Ner4Opt, please cite the following paper:
+
+```
+@inproceedings {ner4opt,
+    title = {Ner4Opt: Named Entity Recognition for Optimization Modelling from Natural Language}
+	author = {Parag Pravin Dakle, Serdar Kadıoğlu, Karthik Uppuluri, Regina Politi, Preethi Raghavan, SaiKrishna Rallabandi, Ravisutha Srinivasamurthy}
+    journal = {The 20th International Conference on the Integration of Constraint Programming, Artificial Intelligence, and Operations Research (CPAIOR 2023)},
+	year = {2023},
+}
+
+```
