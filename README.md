@@ -13,7 +13,7 @@ The Ner4Opt model ([CPAIOR'23](https://github.com/skadio/ner4opt/blob/main/docs/
 - **PARAM**: Parameter
 - **VAR**: Variable
 
-Here are the details of our [pretrained models](https://github.com/skadio/ner4opt/blob/main/models/README.md) and the [training procedure](https://github.com/skadio/ner4opt/blob/main/models/training/README.md). Large pretrained models are hosted in [HuggingFace Models](https://huggingface.co/skadio).
+Here are the details of our [pre-trained models](https://github.com/skadio/ner4opt/blob/main/models/README.md) and the [training procedure](https://github.com/skadio/ner4opt/blob/main/models/training/README.md). Large pretrained models are hosted on [HuggingFace Models](https://huggingface.co/skadio).
 
 ## Quick Start
 
