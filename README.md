@@ -18,11 +18,10 @@ Here are the details of our [pre-trained models](https://github.com/skadio/ner4o
 ## Quick Start
 
 ```python
-# Import
 from ner4opt import Ner4Opt
 
 # Input optimization problem description as free-form text
-problem_description = "Cautious Asset Investment has a total of $150,000 to manage and decides to invest it in money market fund, which yields a 2% return as well as in foreign bonds, which gives and average rate of return of 10.2%. Internal policies require PAI to diversify the asset allocation so that the minimum investment in money market fund is 40% of the total investment. Due to the risk of default of foreign countries, no more than 40% of the total investment should be allocated to foreign bonds. How much should the Cautious Asset Investment allocate in each asset so as to maximize its average return?"
+problem_description = "The Notorious Desk company wants to promote a new brand of wine and wants to market it using a total market budget of $ 87,000 . To do so , the company needs to decide how much to allocate on each of its two advertising channels : ( 1 ) morning TV show and ( 2 ) social media . Each day , it costs the company $ 1,000 and $ 2000 to run advertisement spots on morning TV show and social media respectively . The expected daily reach , based on past ratings , is 15,000 viewers for each morning show spot and 30,000 internet users for a social media spot . The chief marketer knows from her experience that both channels are key to the success of the product launch . She wants to plan at least 4 but no more than 7 morning show spots . In addition , the social media spots needs to be at least 30 due to pricing tier policy . How many times should each of the media channels be used to maximize the reach of the campaign ?"
 
 # Ner4Opt Model with options lexical, lexical_plus, semantic, hybrid (default). 
 ner4opt = Ner4Opt(model="hybrid")
@@ -37,20 +36,20 @@ entities = ner4opt.get_entities(problem_description)
 print("Number of entities found: ", len(entities))
 
 # Example entity output
-[   
+[
     {
-        'start': 32, 
-        'end': 37, 
-        'word': 'total', 
-        'entity_group': 'CONST_DIR', 
-        'score': 0.997172257043559
+        'start': 108,
+        'end': 114,
+        'word': 'budget',
+        'entity_group': 'CONST_DIR',
+        'score': 0.9919970308651846
     },
     {
-        'start': 575, 
-        'end': 583, 
-        'word': 'maximize', 
-        'entity_group': 'OBJ_DIR', 
-        'score': 0.9982091561140413
+        'start': 120,
+        'end': 126,
+        'word': '87,000',
+        'entity_group': 'LIMIT',
+        'score': 0.9993724035912778
     },
     { ... },
 ]
