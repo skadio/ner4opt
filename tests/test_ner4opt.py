@@ -75,6 +75,10 @@ class Ner4OptTest(unittest.TestCase):
         result = self._hybrid_ner_model.get_entities(self._example)
         self.assert_list_of_dicts_equal(result, self._expected_hybrid_result)
 
+    # Empty string test
+    def test_get_entities_empty_text(self):
+        self.assertEqual(self._lexical_ner_model.get_entities(""), [])
+
     # Invalid usage test
     def test_get_entities_invalid_usage(self):
 

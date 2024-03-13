@@ -19,6 +19,13 @@ regex_obj = re.compile(r'\S+')
 pluralizer = inflect.engine()
 
 
+def preprocess(text: str) -> str:
+    """Given a text remove nextline characters and multiple spaces."""
+    text = text.replace("\n", " ").replace("\r", " ")
+    text = re.sub("\s\s+", " ", text.strip())
+    return text
+
+
 def spacy_tokenize_sentence(sentence: str) -> str:
     """Given a sentence tokenize the text using SpaCy."""
     return " ".join([token.text for token in nlp(sentence)])

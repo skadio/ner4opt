@@ -5,7 +5,7 @@ import unittest
 import spacy
 
 from ner4opt.utils import (format_entities, generate_connected_components, generate_singulars_and_plurals,
-                           get_phrases_with_hyphens_and_quotes, l2_augment_sentence, spacy_tokenize_sentence)
+                           get_phrases_with_hyphens_and_quotes, l2_augment_sentence, preprocess, spacy_tokenize_sentence)
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -18,6 +18,11 @@ class UtilsTest(unittest.TestCase):
         self._example_for_spacy_tokenization = "Company A has a profit margin of 10% and B has 20%."
         self._words_and_phrases = ["batch", "coconut", "actor", "wheel", "blood pressure medicine"]
         self._spacy_sentence = nlp('Let us learn about " puff of air test " and a sewing - machine')
+        self._raw_text = "  This\nis\r\na\nstring\n\rwith\n\rmultiple\n\r\nnewlines\n\n\rand   spaces.  "
+        self._preprocessed_text = "This is a string with multiple newlines and spaces."
+
+    def test_preprocess(self):
+        self.assertEqual(preprocess(self._raw_text), self._preprocessed_text)
 
     def test_spacy_tokenize_sentence(self):
         result = spacy_tokenize_sentence(self._example_for_spacy_tokenization)

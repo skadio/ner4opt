@@ -6,7 +6,9 @@ import joblib
 
 from .constants import Constants
 from .featurizer import Featurizer
-from .utils import format_entities, generate_feature_dictionary, l2_augment_sentence, load_torch_model, spacy_tokenize_sentence
+from .utils import (format_entities, generate_feature_dictionary,
+                    l2_augment_sentence, load_torch_model, preprocess,
+                    spacy_tokenize_sentence)
 
 
 class Ner4Opt(object):
@@ -145,6 +147,9 @@ class Ner4Opt(object):
 
         if not text:
             return predicted_entities
+
+        # preprocess
+        text = preprocess(text)
 
         # tokenize to make sure the text is in SpaCy tokenized format
         text = spacy_tokenize_sentence(text)
