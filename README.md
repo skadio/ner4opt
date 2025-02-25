@@ -77,7 +77,19 @@ python -m unittest
 If you use Ner4Opt, please cite the following paper:
 
 ```
-@inproceedings {ner4opt,
+@article{Kadioglu24,
+  author       = {Serdar Kadioglu, Parag Pravin Dakle, Karthik Uppuluri, Regina Politi, Preethi Raghavan, SaiKrishna Rallabandi, Ravisutha Srinivasamurthy},
+  title        = {Ner4Opt: named entity recognition for optimization modelling from natural language},
+  journal      = {Constraints},
+  volume       = {29},
+  number       = {3-4},
+  pages        = {261--299},
+  year         = {2024},
+  url          = {https://doi.org/10.1007/s10601-024-09376-5},
+  doi          = {10.1007/S10601-024-09376-5},
+}
+
+@inproceedings {dakle23,
     title = {Ner4Opt: Named Entity Recognition for Optimization Modelling from Natural Language}
 	author = {Parag Pravin Dakle, Serdar Kadıoğlu, Karthik Uppuluri, Regina Politi, Preethi Raghavan, SaiKrishna Rallabandi, Ravisutha Srinivasamurthy}
     journal = {The 20th International Conference on the Integration of Constraint Programming, Artificial Intelligence, and Operations Research (CPAIOR 2023)},
