@@ -2,7 +2,7 @@
 
 Given an optimization problem in natural language, Ner4Opt extracts optimization related entities from free-form text. 
 
-See our [HugginFace Space Demo](https://huggingface.co/spaces/skadio/Ner4Opt) to test it yourself 🤗. 
+Check out this [HugginFace Space Demo](https://huggingface.co/spaces/skadio/Ner4Opt) to test it yourself 🤗. 
 
 The Ner4Opt model ([Constraints'24](https://link.springer.com/article/10.1007/s10601-024-09376-5), [CPAIOR'23](https://github.com/skadio/ner4opt/blob/main/docs/%5BCPAIOR%202023%5D%20Ner4Opt%20Paper.pdf), [NeurIPS'22](https://github.com/skadio/ner4opt/blob/main/docs/%5BNeurIPS%202022%5D%20Ner4Opt%20Poster.pdf)) is trained to detect six named entities: 
 
