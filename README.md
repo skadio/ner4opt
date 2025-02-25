@@ -74,8 +74,6 @@ python -m unittest
 ```
 
 ## Citation
-
-## Citation
 If you use Ner4Opt, please cite the following paper:
 
 ```
