@@ -86,14 +86,14 @@ If you use Ner4Opt, please cite the following paper:
   pages        = {261--299},
   year         = {2024},
   url          = {https://doi.org/10.1007/s10601-024-09376-5},
-  doi          = {10.1007/S10601-024-09376-5},
+  doi          = {10.1007/S10601-024-09376-5}
 }
 
 @inproceedings{dakle23,
   title 	= {Ner4Opt: Named Entity Recognition for Optimization Modelling from Natural Language}
   author 	= {Parag Pravin Dakle, Serdar Kadıoğlu, Karthik Uppuluri, Regina Politi, Preethi Raghavan, SaiKrishna Rallabandi, Ravisutha Srinivasamurthy}
   journal 	= {The 20th International Conference on the Integration of Constraint Programming, Artificial Intelligence, and Operations Research (CPAIOR 2023)},
-  year 	= {2023},
+  year 	    = {2023}
 }
 
 ```
