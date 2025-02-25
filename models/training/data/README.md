@@ -18,4 +18,4 @@ python -m spacy convert train.txt . -t json -n 1 -c iob
 python -m spacy convert dev.txt . -t json -n 1 -c iob
 ```
 The reason for this conversion is to easily identify frequently occurring key-phrases to engineer relevant features.
-For more details, please refer our [jupyter notebook](https://github.com/skadio/ner4opt/models/training/notebooks/entity_gazetteers.ipynb)
+For more details, please refer our [jupyter notebook](https://github.com/skadio/ner4opt/blob/main/models/training/notebooks/entity_gazetteers.ipynb)
