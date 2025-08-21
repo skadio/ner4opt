@@ -21,7 +21,7 @@ setuptools.setup(
     packages=(["models"] + setuptools.find_packages()),
     include_package_data=True,
     install_requires=required,
-    python_requires=">=3.8",
+    python_requires=">=3.8,<3.9",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.8",

@@ -1,9 +1,10 @@
 import re
-from typing import Any, Type, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Type
 
 import inflect
 import numpy as np
 import spacy
+from huggingface_hub import snapshot_download
 from scipy.special import softmax
 from simpletransformers.ner import NERArgs, NERModel
 from spacy.training import biluo_tags_to_offsets, iob_to_biluo
@@ -142,9 +143,13 @@ def load_torch_model(model_name: str, use_gpu: bool = False, use_multiprocessing
     model_args.manual_seed = 123456789
     model_args.use_cuda = use_gpu
     model_args.use_multiprocessing = use_multiprocessing
-    model_args.force_download = True
+    # Fix the way simpletransformers download the models
+    complete_model_location = snapshot_download(repo_id=model_name, 
+                                                resume_download=True,  # Resume if interrupted
+                                                local_files_only=False  # Allow download if not cached
+                                               )
 
-    model = NERModel("roberta", model_name, labels=Constants.LABELS, use_cuda=use_gpu, args=model_args)
+    model = NERModel("roberta", complete_model_location, labels=Constants.LABELS, use_cuda=use_gpu, args=model_args)
 
     return model
 
