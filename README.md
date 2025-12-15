@@ -1,4 +1,6 @@
-# Ner4Opt: Named Entity Recognition for Optimization 
+# Ner4Opt: Named Entity Recognition for Optimization
+
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/ner4opt?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/ner4opt)
 
 Given an optimization problem in natural language, Ner4Opt extracts optimization related entities from free-form text. 
 
